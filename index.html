@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lautaro Carrere — Lead Developer & PM</title>
+  <meta name="description"
+    content="Lead Developer y Project Manager especializado en sistemas para el sector público y deportivo. PHP, Python, JavaScript, BI.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Syne:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111111;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(255, 255, 255, 0.18);
+      --text: #f0ede8;
+      --muted: #888880;
+      --accent: #c8b89a;
+      --accent2: #7eb8a4;
+      --serif: 'Playfair Display', Georgia, serif;
+      --sans: 'Syne', system-ui, sans-serif;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* GRAIN OVERLAY */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 999;
+      opacity: 0.6;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 3rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-logo {
+      font-family: var(--serif);
+      font-size: 18px;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: end;
+      padding: 8rem 3rem 5rem;
+      gap: 4rem;
+      position: relative;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 40%;
+      height: 100%;
+      background: radial-gradient(ellipse at 80% 40%, rgba(126, 184, 164, 0.06) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-left {
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+    }
+
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero-eyebrow::before {
+      content: '';
+      width: 30px;
+      height: 1px;
+      background: var(--accent2);
+    }
+
+    h1 {
+      font-family: var(--serif);
+      font-size: clamp(48px, 7vw, 82px);
+      font-weight: 400;
+      line-height: 1.05;
+      letter-spacing: -2px;
+      margin-bottom: 1.5rem;
+    }
+
+    h1 em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: 15px;
+      color: var(--muted);
+      max-width: 420px;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      font-family: var(--sans);
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-radius: 2px;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--text);
+      color: var(--bg);
+      border: 1px solid var(--text);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border-hover);
+    }
+
+    .btn-ghost:hover {
+      border-color: var(--text);
+    }
+
+    .hero-right {
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUp 0.9s cubic-bezier(0.22, 1, 0.36, 1) 0.35s forwards;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .stat {
+      padding: 1.5rem;
+      background: var(--surface);
+      transition: background 0.2s;
+    }
+
+    .stat:hover {
+      background: #161616;
+    }
+
+    .stat-num {
+      font-family: var(--serif);
+      font-size: 36px;
+      font-weight: 400;
+      color: var(--accent);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 6rem 3rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 1.5rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .section-num {
+      font-size: 11px;
+      letter-spacing: 2px;
+      color: var(--muted);
+      min-width: 28px;
+    }
+
+    h2 {
+      font-family: var(--serif);
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 400;
+      letter-spacing: -1px;
+    }
+
+    /* PROJECTS */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .project-card {
+      background: var(--surface);
+      padding: 2rem;
+      transition: background 0.25s;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--accent2);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .project-card:hover {
+      background: #141414;
+    }
+
+    .project-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .project-tag {
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--accent2);
+    }
+
+    .project-title {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 400;
+      line-height: 1.2;
+    }
+
+    .project-desc {
+      font-size: 13.5px;
+      color: var(--muted);
+      line-height: 1.7;
+      flex: 1;
+    }
+
+    .project-impact {
+      font-size: 13px;
+      color: var(--text);
+      border-left: 2px solid var(--accent);
+      padding-left: 10px;
+      line-height: 1.5;
+    }
+
+    .project-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      font-size: 11px;
+      padding: 3px 10px;
+      border: 1px solid var(--border-hover);
+      border-radius: 1px;
+      color: var(--muted);
+    }
+
+    /* SKILLS */
+    .skills-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .skill-block {
+      margin-bottom: 2rem;
+    }
+
+    .skill-label {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .skill-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .skill-pill {
+      font-size: 13px;
+      padding: 6px 14px;
+      border: 1px solid var(--border-hover);
+      border-radius: 1px;
+      color: var(--text);
+      transition: all 0.2s;
+    }
+
+    .skill-pill:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ABOUT */
+    .about-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    .about-left h3 {
+      font-family: var(--serif);
+      font-size: 28px;
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .about-detail {
+      margin-bottom: 1.5rem;
+    }
+
+    .about-detail-label {
+      font-size: 10px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .about-detail-val {
+      font-size: 14px;
+    }
+
+    .about-right p {
+      font-size: 15px;
+      line-height: 1.9;
+      color: rgba(240, 237, 232, 0.8);
+      margin-bottom: 1.2rem;
+    }
+
+    .about-right p strong {
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* CONTACT */
+    .contact-inner {
+      max-width: 600px;
+    }
+
+    .contact-inner p {
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .contact-link {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.1rem 1.5rem;
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 14px;
+      transition: background 0.2s;
+    }
+
+    .contact-link:hover {
+      background: #161616;
+    }
+
+    .contact-link span:last-child {
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* MOBILE */
+    @media (max-width: 768px) {
+      nav {
+        padding: 1rem 1.5rem;
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 6rem 1.5rem 3rem;
+        gap: 3rem;
+        align-items: start;
+      }
+
+      .hero::after {
+        display: none;
+      }
+
+      section {
+        padding: 4rem 1.5rem;
+      }
+
+      .about-layout {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .skills-layout {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+
+      footer {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <nav>
+    <a href="#" class="nav-logo">Lautaro Carrere</a>
+    <ul class="nav-links">
+      <li><a href="#proyectos">Proyectos</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#sobre-mi">Sobre mí</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow">Lead Developer · Project Manager</div>
+      <h1>Código que<br><em>impacta</em><br>en el mundo real.</h1>
+      <p class="hero-sub">Sistemas en producción para el sector público provincial y federaciones deportivas. Desde el
+        relevamiento hasta el deploy, sin supervisión constante.</p>
+      <div class="hero-cta">
+        <a href="#proyectos" class="btn btn-primary">Ver proyectos</a>
+        <a href="#contacto" class="btn btn-ghost">Contacto</a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="stat-grid">
+        <div class="stat">
+          <div class="stat-num">3+</div>
+          <div class="stat-label">Sistemas en producción</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">∞</div>
+          <div class="stat-label">Procesos manuales eliminados</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">B2</div>
+          <div class="stat-label">Inglés · Ready to work remotely</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">22</div>
+          <div class="stat-label">Años · Lic. Sistemas UADER</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROYECTOS -->
+  <section id="proyectos">
+    <div class="section-header reveal">
+      <span class="section-num">01</span>
+      <h2>Proyectos destacados</h2>
+    </div>
+
+    <div class="projects-grid">
+
+      <div class="project-card reveal">
+        <div class="project-tag">Sector Público · Gobierno Provincial</div>
+        <div class="project-title">Plataforma de Votación Electrónica</div>
+        <p class="project-desc">Sistema integral de votación para los concejos deliberantes de múltiples municipios de
+          la Provincia de Entre Ríos. Reemplazó un proceso 100% manual de conteo de votos con una plataforma trazable y
+          auditable.</p>
+        <div class="project-impact">Adoptado por organismos municipales en toda la provincia. Proceso electoral
+          digitalizado por primera vez.</div>
+        <div class="project-stack">
+          <span class="tag">PHP</span><span class="tag">JavaScript</span><span class="tag">Oracle DB</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-tag">Deportes · Federación Provincial</div>
+        <div class="project-title">OnAPB — Sistema de Gestión APB</div>
+        <p class="project-desc">Evolución completa del sistema institucional de la Asociación Paranaense de Básquet:
+          gestión de credenciales, procesamiento de pagos y notificaciones automatizadas unificadas en una sola
+          plataforma. <a href="https://onapb.com" style="color:var(--accent2); text-decoration:none;"
+            target="_blank">onapb.com ↗</a></p>
+        <div class="project-impact">Utilizado en todos los partidos y eventos de la asociación. Cero incidencias de
+          acceso por partido desde la implementación.</div>
+        <div class="project-stack">
+          <span class="tag">PHP</span><span class="tag">JavaScript</span><span class="tag">MySQL</span><span
+            class="tag">Python</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-tag">Control de Accesos · QR</div>
+        <div class="project-title">Sistema de Accesos — Club Paracao</div>
+        <p class="project-desc">Diseño e implementación desde cero de un sistema de control de accesos mediante códigos
+          QR. Eliminó la validación manual de socios en eventos y partidos, pasando a una validación instantánea en
+          puerta.</p>
+        <div class="project-impact">Sistema propio en producción, arquitectura diseñada e implementada de forma
+          independiente. Base del sistema que luego escalaría a la APB.</div>
+        <div class="project-stack">
+          <span class="tag">Python</span><span class="tag">Flask</span><span class="tag">MySQL</span>
+        </div>
+      </div>
+
+      <div class="project-card reveal">
+        <div class="project-tag">Business Intelligence · Gobierno</div>
+        <div class="project-title">Dashboards BI — Modernización Entre Ríos</div>
+        <p class="project-desc">Normalización de datos provinciales y construcción de tableros dinámicos en Looker
+          Studio para la toma de decisiones basada en métricas reales. Transformación de datos dispersos en reportes
+          accionables para equipos de gobierno.</p>
+        <div class="project-impact">Pasó de reportes estáticos a dashboards dinámicos en tiempo real para equipos de
+          decisión provincial.</div>
+        <div class="project-stack">
+          <span class="tag">Looker Studio</span><span class="tag">Google Sheets</span><span class="tag">Oracle DB</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-header reveal">
+      <span class="section-num">02</span>
+      <h2>Stack técnico</h2>
+    </div>
+
+    <div class="skills-layout">
+      <div>
+        <div class="skill-block reveal">
+          <div class="skill-label">Lenguajes</div>
+          <div class="skill-items">
+            <span class="skill-pill">PHP</span>
+            <span class="skill-pill">JavaScript</span>
+            <span class="skill-pill">Python</span>
+            <span class="skill-pill">C++</span>
+            <span class="skill-pill">Elixir</span>
+            <span class="skill-pill">R</span>
+          </div>
+        </div>
+        <div class="skill-block reveal">
+          <div class="skill-label">Bases de datos</div>
+          <div class="skill-items">
+            <span class="skill-pill">Oracle Database</span>
+            <span class="skill-pill">MySQL</span>
+            <span class="skill-pill">SQL Server</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="skill-block reveal">
+          <div class="skill-label">Herramientas</div>
+          <div class="skill-items">
+            <span class="skill-pill">Docker</span>
+            <span class="skill-pill">Git</span>
+            <span class="skill-pill">Looker Studio</span>
+            <span class="skill-pill">Google Sheets</span>
+            <span class="skill-pill">Excel</span>
+          </div>
+        </div>
+        <div class="skill-block reveal">
+          <div class="skill-label">Metodologías</div>
+          <div class="skill-items">
+            <span class="skill-pill">Scrum</span>
+            <span class="skill-pill">RUP</span>
+          </div>
+        </div>
+        <div class="skill-block reveal">
+          <div class="skill-label">Idiomas</div>
+          <div class="skill-items">
+            <span class="skill-pill">Español — Nativo</span>
+            <span class="skill-pill">Inglés — B2</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE MÍ -->
+  <section id="sobre-mi">
+    <div class="section-header reveal">
+      <span class="section-num">03</span>
+      <h2>Sobre mí</h2>
+    </div>
+
+    <div class="about-layout">
+      <div class="about-left reveal">
+        <h3>Desarrollador con mentalidad de producto.</h3>
+        <div class="about-detail">
+          <div class="about-detail-label">Ubicación</div>
+          <div class="about-detail-val">Paraná, Entre Ríos — Argentina</div>
+        </div>
+        <div class="about-detail">
+          <div class="about-detail-label">Educación</div>
+          <div class="about-detail-val">Lic. Sistemas Informáticos (4º año)<br><span
+              style="color:var(--muted); font-size:13px;">UADER · Universidad Autónoma de Entre Ríos</span></div>
+        </div>
+        <div class="about-detail">
+          <div class="about-detail-label">Disponibilidad</div>
+          <div class="about-detail-val">Remoto · Relocation · Full-time</div>
+        </div>
+      </div>
+
+      <div class="about-right reveal">
+        <p>Construyo sistemas que funcionan en el mundo real —no en demos.</p>
+        <p>A los 22 años entregué en producción una <strong>plataforma de votación electrónica</strong> para organismos
+          públicos provinciales, y luego lideré la evolución completa del sistema oficial de la <strong>Asociación
+            Paranaense de Básquet</strong>. No trabajé en proyectos académicos: trabajé en sistemas que hoy mismo están
+          siendo usados.</p>
+        <p>Mi diferencial es que funciono como un <strong>PM con mentalidad de dev</strong>: tomo requerimientos en
+          lenguaje de negocio, los convierto en arquitectura técnica y los entrego. Sin supervisión constante. Desde el
+          relevamiento hasta el deploy.</p>
+        <p>Busco un rol donde el impacto real importe más que el proceso.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto">
+    <div class="section-header reveal">
+      <span class="section-num">04</span>
+      <h2>Hablemos</h2>
+    </div>
+
+    <div class="contact-inner reveal">
+      <p>Abierto a oportunidades remotas y roles internacionales. Tiempo de respuesta: menos de 24 horas.</p>
+      <div class="contact-links">
+        <a href="mailto:carrerelautaro@gmail.com" class="contact-link">
+          <span>carrerelautaro@gmail.com</span>
+          <span>→</span>
+        </a>
+        <a href="https://linkedin.com/in/lautaro-carrere-3ab0aa237" target="_blank" class="contact-link">
+          <span>LinkedIn</span>
+          <span>→</span>
+        </a>
+        <a href="https://github.com/Laucha1312" target="_blank" class="contact-link">
+          <span>GitHub</span>
+          <span>→</span>
+        </a>
+        <a href="tel:+5434353362774" class="contact-link">
+          <span>+54 343 5336274</span>
+          <span>→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2025 Lautaro Carrere</span>
+    <span>Paraná, Argentina · Disponible para trabajo remoto</span>
+  </footer>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+
+</body>
+
+</html>
