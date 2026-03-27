@@ -367,56 +367,112 @@
       color: var(--muted);
     }
 
-    /* SKILLS INTERACTIVE */
-    .skills-layout {
+    /* KEYBOARD SECTION CSS */
+    .skills-keyboard-container {
+      position: relative;
+      perspective: 2000px;
+      padding: 4rem 0;
+      min-height: 700px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .keyboard-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      align-items: center;
+      grid-template-columns: repeat(5, minmax(100px, 120px));
+      gap: 2.5rem;
+      transform: rotateX(45deg) rotateZ(-15deg);
+      transform-style: preserve-3d;
     }
 
-    .skill-category { margin-bottom: 3.5rem; }
-    .skill-category h3 {
-      font-family: var(--font-display);
-      font-size: 1.1rem;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      color: var(--muted);
-      margin-bottom: 2rem;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    .skill-category h3::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
+    .keycap-container {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      transform-style: preserve-3d;
+      cursor: pointer;
     }
 
-    .skill-items {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-    }
-
-    .skill-pill {
-      padding: 0.8rem 1.6rem;
+    .keycap {
+      position: absolute;
+      width: 100%;
+      height: 100%;
       background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: all 0.3s;
+      border-radius: 20px;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 10px;
+      justify-content: center;
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 
+        0 10px 0 0 rgba(0,0,0,0.3),
+        0 15px 30px -10px rgba(59, 130, 246, 0.3);
+      transform-style: preserve-3d;
     }
-    .skill-pill:hover {
-      border-color: var(--primary);
-      background: rgba(59, 130, 246, 0.08);
+
+    .keycap i, .keycap svg {
       color: var(--primary);
-      transform: scale(1.05);
+      margin-bottom: 8px;
+    }
+
+    .keycap span {
+      font-size: 0.75rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+    }
+
+    .keycap-container:hover .keycap {
+      background: rgba(59, 130, 246, 0.1);
+      border-color: var(--primary);
+      transform: translateZ(15px);
+    }
+
+    .keycap-container:active .keycap {
+      transform: translateZ(-5px);
+      box-shadow: 0 2px 0 0 rgba(0,0,0,0.3);
+    }
+
+    .floating-info {
+      position: absolute;
+      top: 50%;
+      right: 0;
+      transform: translateY(-50%);
+      background: rgba(15, 23, 42, 0.5);
+      backdrop-filter: blur(15px);
+      padding: 2.5rem;
+      border-radius: 32px;
+      border: 1px solid var(--border);
+      max-width: 350px;
+      pointer-events: none;
+      opacity: 0;
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 100;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    .floating-info.visible {
+      opacity: 1;
+      transform: translateY(-50%) translateX(-20px);
+    }
+
+    #skill-title {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    #skill-desc {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.6;
     }
 
     /* CONTACT FORM */
@@ -488,14 +544,6 @@
       text-align: center;
     }
 
-    .footer-logo {
-      font-family: var(--font-display);
-      font-size: 1.5rem;
-      font-weight: 800;
-      margin-bottom: 1.5rem;
-      display: block;
-    }
-
     /* MODAL */
     .modal {
       position: fixed;
@@ -508,41 +556,15 @@
       z-index: 5000;
       padding: 2rem;
     }
-    .modal-content {
-      background: var(--bg);
-      max-width: 600px;
-      width: 100%;
-      padding: 3.5rem;
-      border-radius: 40px;
-      border: 1px solid var(--border);
-      position: relative;
-      text-align: center;
-    }
-    .modal-close { position: absolute; top: 1.5rem; right: 1.5rem; cursor: pointer; color: var(--muted); transition: 0.3s; }
-    .modal-close:hover { color: var(--text); transform: rotate(90deg); }
 
-    .humorous-warning {
-      color: #ef4444;
-      font-weight: 800;
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-      font-family: var(--font-display);
-    }
-
-    /* RESPONSIVE */
     @media (max-width: 1024px) {
       .hero-content { grid-template-columns: 1fr; text-align: center; }
       .hero-cta { justify-content: center; }
       .hero-spline { order: -1; height: 400px; }
-      .skills-layout { grid-template-columns: 1fr; }
       .contact-container { grid-template-columns: 1fr; padding: 2.5rem; }
-    }
-
-    @media (max-width: 640px) {
-      .input-row { grid-template-columns: 1fr; }
-      .hero-text h1 { font-size: 3.5rem; }
-      section { padding: 6rem 1.5rem; }
-      nav { width: 95%; }
+      .skills-keyboard-container { min-height: auto; }
+      .keyboard-grid { grid-template-columns: repeat(3, 100px); transform: rotateX(20deg) rotateZ(0); }
+      .floating-info { position: static; transform: none; max-width: 100%; margin-top: 3rem; opacity: 1; }
     }
   </style>
 </head>
@@ -623,7 +645,6 @@
     </div>
     
     <div class="grid">
-      
       <div class="card reveal-card">
         <span class="card-tag">Gobierno Provincial</span>
         <h3 class="card-title">Plataforma de Votación</h3>
@@ -632,7 +653,6 @@
           <span class="tag">PHP</span><span class="tag">JavaScript</span><span class="tag">Oracle Database</span>
         </div>
       </div>
-
       <div class="card reveal-card">
         <span class="card-tag">Deportes · Federación</span>
         <h3 class="card-title">OnAPB — Sistema Gestión</h3>
@@ -641,7 +661,6 @@
           <span class="tag">Laravel</span><span class="tag">Python</span><span class="tag">MySQL</span>
         </div>
       </div>
-
       <div class="card reveal-card">
         <span class="card-tag">Control de Accesos</span>
         <h3 class="card-title">Acceso QR — Club Paracao</h3>
@@ -650,7 +669,6 @@
           <span class="tag">Python</span><span class="tag">Flask</span><span class="tag">IoT</span>
         </div>
       </div>
-
       <div class="card reveal-card">
         <span class="card-tag">BI · Modernización</span>
         <h3 class="card-title">Dashboards Looker Studio</h3>
@@ -659,45 +677,34 @@
           <span class="tag">BI</span><span class="tag">Looker</span><span class="tag">Data Analytics</span>
         </div>
       </div>
-
     </div>
   </section>
 
-  <!-- SKILLS -->
+  <!-- SKILLS (INTERACTIVE KEYBOARD) -->
   <section id="skills">
     <div class="section-header">
       <span class="section-num">02 / STACK</span>
-      <h2 class="section-title">Mi Caja de Herramientas.</h2>
+      <h2 class="section-title">El Teclado de Herramientas.</h2>
+      <p class="card-desc" style="max-width: 600px; margin-top: 1rem;">Haz click o presiona cualquier tecla para ver mi experiencia con cada tecnología.</p>
     </div>
 
-    <div class="skills-layout">
-      <div>
-        <div class="skill-category">
-          <h3>Lenguajes</h3>
-          <div class="skill-items">
-            <span class="skill-pill"><i data-lucide="code"></i> PHP</span>
-            <span class="skill-pill"><i data-lucide="terminal"></i> JavaScript</span>
-            <span class="skill-pill"><i data-lucide="box"></i> Python</span>
-            <span class="skill-pill"><i data-lucide="cpu"></i> C++</span>
-          </div>
-        </div>
-        <div class="skill-category">
-          <h3>Ecosistema</h3>
-          <div class="skill-items">
-            <span class="skill-pill"><i data-lucide="database"></i> Oracle DB</span>
-            <span class="skill-pill"><i data-lucide="layers"></i> MySQL / SQL Server</span>
-            <span class="skill-pill"><i data-lucide="container"></i> Docker</span>
-            <span class="skill-pill"><i data-lucide="git-merge"></i> Git</span>
-          </div>
-        </div>
+    <div class="skills-keyboard-container">
+      <div class="keyboard-grid" id="keyboard">
+        <!-- Keys injected by JS -->
       </div>
-      <div class="card" style="cursor: default;">
-        <h3 class="card-title" style="font-size: 1.2rem; display: flex; align-items: center; gap: 10px;">
-          <i data-lucide="sparkles" size="18" color="var(--primary)"></i>
-          Filosofía de Desarrollo
-        </h3>
-        <p class="card-desc">"PM con mentalidad de Dev". Tomo requerimientos de negocio, diseño la arquitectura y ejecuto el deploy sin supervisión constante. Sistemas que funcionan bajo presión, no prototipos.</p>
+      
+      <div class="floating-info" id="floating-info">
+        <h3 id="skill-title">HOLA_</h3>
+        <p id="skill-desc">Presiona cualquier tecla o interactúa con el teclado para empezar.</p>
       </div>
+    </div>
+
+    <div class="card" style="cursor: default; margin-top: 5rem; max-width: 800px; margin-left: auto; margin-right: auto;">
+      <h3 class="card-title" style="font-size: 1.2rem; display: flex; align-items: center; gap: 10px;">
+        <i data-lucide="sparkles" size="18" color="var(--primary)"></i>
+        Filosofía de Desarrollo
+      </h3>
+      <p class="card-desc">"PM con mentalidad de Dev". Tomo requerimientos de negocio, diseño la arquitectura y ejecuto el deploy sin supervisión constante. Sistemas que funcionan bajo presión, no prototipos académicos.</p>
     </div>
   </section>
 
@@ -887,14 +894,94 @@
       ease: "elastic.out(1, 0.5)"
     });
 
-    // Skill Pills
-    gsap.from(".skill-pill", {
-      scrollTrigger: { trigger: ".skill-items", start: "top bottom" },
-      y: 20,
-      opacity: 0,
-      stagger: 0.05,
-      duration: 0.5,
-      ease: "power2.out"
+    // SKILLS KEYBOARD LOGIC
+    const skills = [
+      { id: 'php', name: 'PHP', icon: 'code', svg: '<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12.112 16.035c-.943.04-1.127-.47-1.1-1.074.03-.665.483-1.42 1.309-1.554.767-.12 1.144.17 1.134.82-.013.805-.418 1.769-1.343 1.808zm2.446-4.661c.01-.58-.331-.765-.89-.734-.61.034-.99.387-1.063.858-.078.47.28.665.856.634.618-.034 1.088-.261 1.097-.758zm2.592 1.542c-.01.59-.444.898-1.103.931-.767.04-1.229-.272-1.21-.903.024-.657.47-1.006 1.104-1.042.85-.047 1.218.423 1.209 1.014zM24 12c0 6.627-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0s12 5.373 12 12zM6.92 15.176c.026-1.547.887-2.483 2.144-2.553 1.18-.06 1.742.433 1.714 1.168-.024 1.285-.806 2.144-2.023 2.21-1.11.06-1.85-.31-1.835-.825zm1.5-1.14c-.01.56.326.79.882.76.633-.03.953-.404.97-1.017.012-.46-.228-.711-.794-.68-.614.033-1.046.417-1.058.937zm4.358 1.488c.03-2.04 1.204-3.328 2.898-3.42 1.49-.08 2.378.683 2.344 1.637-.024 1.398-.718 2.371-1.996 2.44-1.043.056-1.634-.413-1.61-1.104h-.024c-.05 1.114-.702 1.8-1.587 1.848-1.12.06-1.724-.523-1.7-.1-.13.914 1.685-1.401 2.053-.941zm1.203-1.12c-.01.536.236.726.79.696.643-.034.908-.41.92-1.037.01-.5-.224-.741-.784-.711-.622.034-.913.433-.926 1.052z"/></svg>' },
+      { id: 'js', name: 'JS', icon: 'terminal', svg: '<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M0 0h24v24H0V0zm22.034 18.268c0-1.296-.828-2.316-2.424-3.036l-.66-.288c-.6-.24-.9-.444-.9-.768 0-.24.228-.396.648-.396.42 0 .648.192.732.54h1.74c-.12-1.32-1.092-2.052-2.424-2.052-1.488 0-2.508.816-2.508 2.124 0 1.212.732 1.836 2.256 2.46l.756.3c.792.324 1.032.612 1.032.984 0 .42-.384.708-.948.708-.54 0-.9-.276-1.092-.744h-1.704c.156 1.356 1.176 2.088 2.688 2.088 1.776 0 2.856-.912 2.856-2.232zm-6.072-.552h1.668V21.6c-.672.336-1.62.516-2.628.516-2.496 0-4.068-1.368-4.068-3.924 0-2.316 1.512-3.888 4.116-3.888 1.02 0 1.848.18 2.496.468l-.408 1.488c-.528-.24-1.128-.36-1.896-.36-1.74 0-2.484 1.116-2.484 2.376 0 1.548.84 2.364 2.34 2.364.336 0 .612-.024.864-.084V17.716z"/></svg>' },
+      { id: 'python', name: 'Python', icon: 'box', svg: '<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M14.25.3c.9.15 1.5 1.05 1.5 1.95v3h3c.9 0 1.8.6 1.95 1.5.15.9-.6 1.8-1.5 1.95h-3c-1.2 0-2.1.9-2.1 2.1v3.3c0 .9-.6 1.8-1.5 1.95-.9.15-1.8-.6-1.95-1.5v-3.3c0-2.1-1.8-3.9-3.9-3.9h-3.3c-.9 0-1.8-.6-1.95-1.5-.15-.9.6-1.8 1.5-1.95h3.3c2.1 0 3.9-1.8 3.9-3.9V.3c0 .15.6-.15 1.5-.15zM10.8 14.7h3.3c.9 0 1.8.6 1.95 1.5.15.9-.6 1.8-1.5 1.95h-3.3c-2.1 0-3.9 1.8-3.9 3.9v3c0 .9-.6 1.8-1.5 1.95-.9.15-1.8-.6-1.95-1.5v-3c0-2.1 1.8-3.9 3.9-3.9h3.3c1.2 0 2.1-.9 2.1-2.1v-3.3c0-.9.6-1.8 1.5-1.95.9-.15 1.8.6 1.95 1.5v3.3c0 2.1-1.8 3.9-3.9 3.9z"/></svg>' },
+      { id: 'docker', name: 'Docker', icon: 'container', svg: '<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M13.983 11.078h2.119v2.119h-2.119zM11.454 11.078h2.119v2.119h-2.119zM8.925 11.078h2.119v2.119h-2.119zM6.396 11.078h2.119v2.119h-2.119zM8.925 8.549h2.119v2.119h-2.119zM11.454 8.549h2.119v2.119h-2.119zM11.454 6.02h2.119v2.119h-2.119zM13.983 8.549h2.119v2.119h-2.119zM24 12.981s-1.896-.411-2.618-1.127c-1.353-1.34-1.233-3.692-1.233-3.692s-2.107.032-3.417 1.25c-1.272 1.183-1.42 1.868-1.42 1.868h-11.23v5.617c0 1.636 1.326 2.962 2.962 2.962h15.932s2.008-.433 2.531-2.962c.427-2.073-.008-3.914-.008-3.914z"/></svg>' },
+      { id: 'oracle', name: 'Oracle', icon: 'database', svg: '<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4-9h-8v2h8v-2z"/></svg>' },
+      { id: 'cpp', name: 'C++', icon: 'cpu', svg: '<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v10h-2V7z"/></svg>' },
+      { id: 'git', name: 'Git', icon: 'git-merge', svg: '<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M23.546 10.93L13.067.452c-.6-.6-1.577-.6-2.177 0L8.808 2.53l2.277 2.277c.605-.2 1.296-.059 1.764.41.478.478.614 1.181.405 1.79l2.388 2.39c.61-.21 1.31-.07 1.79.41.6.6.6 1.577 0 2.177s-1.577.6-2.177 0c-.48-.48-.62-1.18-.41-1.79L12.44 7.84c-.2.21-.49.34-.81.39v9.11c.32.05.61.18.81.39.6.6.6 1.577 0 2.177s-1.577.6-2.177 0c-.6-.6-.6-1.577 0-2.177.21-.21.49-.34.81-.39V8.23c-.32-.05-.61-.18-.81-.39-.48-.48-.61-1.18-.41-1.79L7.58 3.77.452 10.9c-.6.6-.6 1.577 0 2.177l10.48 10.48c.6.6 1.577.6 2.177 0l10.48-10.48c.6-.6.6-1.577 0-2.177z"/></svg>' },
+      { id: 'sql', name: 'SQL', icon: 'layers' },
+      { id: 'looker', name: 'Looker', icon: 'bar-chart-3' },
+      { id: 'excel', name: 'Excel', icon: 'table' },
+      { id: 'elixir', name: 'Elixir', icon: 'droplet', desc: 'Funcional y concurrente. Bebida para dioses y devs valientes. 💜🧪' },
+      { id: 'r', name: 'R', icon: 'activity', desc: 'Estadística dura para cuando Excel se queda corto. 📊📉' },
+      { id: 'scrum', name: 'Scrum', icon: 'users', desc: 'Agilidad real, no solo reuniones infinitas. 🏃‍♂️💨' },
+      { id: 'rup', name: 'RUP', icon: 'clipboard-list', desc: 'Estructura clásica. Porque el orden nunca pasa de moda. 📋📐' }
+    ];
+
+    const keyboard = document.getElementById('keyboard');
+    const info = document.getElementById('floating-info');
+    const skillTitle = document.getElementById('skill-title');
+    const skillDesc = document.getElementById('skill-desc');
+
+    function createKeyboard() {
+      skills.forEach((skill, i) => {
+        const container = document.createElement('div');
+        container.className = 'keycap-container';
+        container.innerHTML = `
+          <div class="keycap" id="key-${skill.id}">
+            ${skill.svg ? skill.svg : `<i data-lucide="${skill.icon}"></i>`}
+            <span>${skill.name}</span>
+          </div>
+        `;
+        
+        container.addEventListener('mouseenter', () => showSkill(skill));
+        container.addEventListener('click', () => {
+          showSkill(skill);
+          animateKeyPress(skill.id);
+        });
+        
+        keyboard.appendChild(container);
+      });
+      lucide.createIcons();
+      startDancing();
+    }
+
+    function showSkill(skill) {
+      skillTitle.innerText = skill.name + '_';
+      skillDesc.innerText = skill.desc;
+      info.classList.add('visible');
+    }
+
+    function animateKeyPress(id) {
+      const el = document.getElementById(`key-${id}`);
+      gsap.to(el, {
+        translateZ: -15,
+        duration: 0.1,
+        yoyo: true,
+        repeat: 1,
+        ease: "power2.inOut"
+      });
+    }
+
+    function startDancing() {
+      gsap.utils.toArray('.keycap-container').forEach((key, i) => {
+        gsap.to(key, {
+          y: "-=15",
+          duration: 1.5 + Math.random(),
+          repeat: -1,
+          yoyo: true,
+          ease: "back.inOut(1.4)",
+          delay: i * 0.1
+        });
+      });
+    }
+
+    // Global Key Listener
+    window.addEventListener('keydown', (e) => {
+      const char = e.key.toLowerCase();
+      const skill = skills.find(s => s.name.toLowerCase().startsWith(char));
+      if (skill) {
+        showSkill(skill);
+        animateKeyPress(skill.id);
+      }
+    });
+
+    window.addEventListener('load', () => {
+      createKeyboard();
     });
 
     // Interactive Card Hover (Mouse position effect)
